@@ -27,7 +27,8 @@ function App() {
     axios.get(`https://quotes.rest/qod?category=inspire`).then((res) => {
       setDailyQuote(res.data.contents.quotes);
       const difference = +new Date(`01/01/${year + 1}`) - +new Date();
-      setDays(Math.floor(difference / (1000 * 60 * 60 * 24)));
+      const daysRemaining = Math.floor((difference / (1000 * 60 * 60 * 24)));
+      setDays(days_of_year(year)-daysRemaining);
       setTotalDays(days_of_year(year));
     });
   }, []);
@@ -81,15 +82,14 @@ function App() {
       <Col sm={{ size: 12 }}>
         <Card className="card">
           <CardBody>
-            <CardTitle> Days Remaining to {year + 1} </CardTitle>
-            {/* <Badge>
-              {day}/{totalDays}
-            </Badge> */}
-            <h1>
+            <CardTitle><h1>Daily Day Count</h1>  </CardTitle>
+            <hr/>
+            <h2>Day</h2>
+            <h2>
               <Badge variant="secondary">
                 {day}/{totalDays}
               </Badge>
-            </h1>
+            </h2>
           </CardBody>
 
           {dailyQuote.map((quote) => {
@@ -102,7 +102,8 @@ function App() {
             );
           })}
 
-          <CardFooter>Made using ReactJS + ShardsUi</CardFooter>
+          <CardFooter><small>Made using ReactJS + ShardsUi</small>
+            <p><small>Version 1.30.10.20</small></p></CardFooter>
         </Card>
       </Col>
     </Container>

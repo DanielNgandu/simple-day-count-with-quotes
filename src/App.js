@@ -24,8 +24,9 @@ function App() {
 
   useEffect(() => {
     // Update the document title using the browser API
-    axios.get(`https://quotes.rest/qod?category=inspire`).then((res) => {
-      setDailyQuote(res.data.contents.quotes);
+    axios.get(`https://private-anon-a4225b40ea-goquotes.apiary-proxy.com/api/v1/random?count=1`).then((res) => {
+      // console.log(res.data.quotes[0]);
+      setDailyQuote(res.data.quotes);
       const difference = +new Date(`01/01/${year + 1}`) - +new Date();
       const daysRemaining = Math.floor((difference / (1000 * 60 * 60 * 24)));
       setDays(days_of_year(year)-daysRemaining);
@@ -75,8 +76,7 @@ function App() {
       </span>
     );
   });
-  // dailyQuote.map((quotes) => {
-  //   const { author, quote } = quotes;
+
   return (
     <Container className="dr-example-container">
       <Col sm={{ size: 12 }}>
@@ -96,19 +96,20 @@ function App() {
             return (
               <div>
                 <p>
-                  '{quote.quote}' - {quote.author}
+                  '{quote.text}'
                 </p>
+                <p><small>{quote.author}</small></p>
               </div>
             );
           })}
 
           <CardFooter><small>Made using ReactJS + ShardsUi</small>
-            <p><small>Version 1.30.10.20</small></p></CardFooter>
+            {/*<p><small>Version 1.30.10.20</small></p>*/}
+          </CardFooter>
         </Card>
       </Col>
     </Container>
   );
-  // });
 }
 
 export default App;
